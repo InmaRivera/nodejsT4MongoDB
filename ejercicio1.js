@@ -200,12 +200,17 @@ http.createServer(function (peticion, respuesta) {
 
     }
     else {
-        respuesta.writeHead(404, { 'Content-Type': 'text/html;charset=utf-8' });
-        respuesta.write("<h1>Esta página no se encuentra</h1>");
-        respuesta.end();
-        client.close();
-    }
+        fs.readFile('404.html', function (err, dato) {
+            respuesta.writeHead(404, { 'Content-Type': 'text/html;charset=utf-8 ' });
+            respuesta.write(dato);
+            respuesta.end();
+            // respuesta.writeHead(404, { 'Content-Type': 'text/html;charset=utf-8' });
+            // // respuesta.write("<h1>Esta página no se encuentra</h1>");
+            // respuesta.end();
+            // client.close();
+        })
 
+    }
 }).listen(8090, function (err) {
     if (err) {
         console.log("Error al iniciar el servidor");
